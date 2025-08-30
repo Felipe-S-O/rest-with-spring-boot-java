@@ -1,4 +1,4 @@
-package com.felipe.rest_with_spring_boot_java.exception;
+package com.felipe.rest_with_spring_boot_java.exceptions;
 
 import java.util.Date;
 

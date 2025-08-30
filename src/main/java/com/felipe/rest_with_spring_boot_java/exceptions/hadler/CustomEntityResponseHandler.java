@@ -1,4 +1,4 @@
-package com.felipe.rest_with_spring_boot_java.exception.hadler;
+package com.felipe.rest_with_spring_boot_java.exceptions.hadler;
 
 import java.util.Date;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.felipe.rest_with_spring_boot_java.exception.ExceptionResponse;
-import com.felipe.rest_with_spring_boot_java.exception.UnsupportedMathOperationException;
+import com.felipe.rest_with_spring_boot_java.exceptions.ExceptionResponse;
+import com.felipe.rest_with_spring_boot_java.exceptions.UnsupportedMathOperationException;
 
 @ControllerAdvice
 @RestController

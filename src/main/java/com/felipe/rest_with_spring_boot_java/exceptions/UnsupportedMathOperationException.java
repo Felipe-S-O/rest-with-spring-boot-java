@@ -1,4 +1,4 @@
-package com.felipe.rest_with_spring_boot_java.exception;
+package com.felipe.rest_with_spring_boot_java.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

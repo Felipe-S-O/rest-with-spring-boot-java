@@ -4,10 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 //class gera o status code 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class UnsupportedMathOperationException extends RuntimeException {
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class ResouceNotFoundException extends RuntimeException {
 
-    public UnsupportedMathOperationException(String ex) {
+    public ResouceNotFoundException(String ex) {
         super(ex);
     }
 }

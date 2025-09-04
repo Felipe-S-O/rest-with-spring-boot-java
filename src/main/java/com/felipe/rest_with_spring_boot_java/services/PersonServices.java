@@ -1,8 +1,6 @@
 package com.felipe.rest_with_spring_boot_java.services;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +12,6 @@ import com.felipe.rest_with_spring_boot_java.repository.PersonRepository;
 
 @Service
 public class PersonServices {
-
-    private final AtomicLong counter = new AtomicLong();
 
     @Autowired
     private PersonRepository repository;

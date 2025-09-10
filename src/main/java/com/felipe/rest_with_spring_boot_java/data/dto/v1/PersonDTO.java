@@ -1,10 +1,22 @@
 package com.felipe.rest_with_spring_boot_java.data.dto.v1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({ "id", "firstName", "lastName", "address", "gender" })
 public class PersonDTO {
+
     private Long id;
+
+    @JsonProperty("first_name")
     private String firstName;
+
+    @JsonProperty("last_name")
     private String lastName;
     private String address;
+
+    @JsonIgnore
     private String gender;
 
     public PersonDTO() {

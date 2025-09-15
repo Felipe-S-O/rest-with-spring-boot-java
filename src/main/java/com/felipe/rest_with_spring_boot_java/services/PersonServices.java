@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.felipe.rest_with_spring_boot_java.data.dto.v1.PersonDTO;
-import com.felipe.rest_with_spring_boot_java.data.dto.v2.PersonDTOV2;
 import com.felipe.rest_with_spring_boot_java.exceptions.ResouceNotFoundException;
 import com.felipe.rest_with_spring_boot_java.mapper.ObjectMapper;
-import com.felipe.rest_with_spring_boot_java.mapper.custom.PersonMapper;
 import com.felipe.rest_with_spring_boot_java.model.Person;
 import com.felipe.rest_with_spring_boot_java.repository.PersonRepository;
 
@@ -19,9 +17,6 @@ public class PersonServices {
 
     @Autowired
     private PersonRepository repository;
-
-    @Autowired
-    private PersonMapper personMapper;
 
     private Logger logger = Logger.getLogger(PersonServices.class.getName());
 
@@ -46,13 +41,6 @@ public class PersonServices {
         var entity = ObjectMapper.parseObject(person, Person.class);
 
         return ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
-    }
-
-    public PersonDTOV2 createV2(PersonDTOV2 person) {
-        logger.info("Create one Person V2!");
-        var entity = personMapper.convertDTOtoEntity(person);
-
-        return personMapper.convertEntityToDTO(repository.save(entity));
     }
 
     public PersonDTO update(PersonDTO person) {

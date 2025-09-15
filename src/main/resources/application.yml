@@ -14,3 +14,24 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
     open-in-view: false
+springdoc:
+  api-docs:
+    # altera esse caminho depois em produção
+    path: /api/v1/api-docs
+
+  swagger-ui:
+    use-root-path:
+      true
+      # altera esse caminho depois em produção
+    path: /doc
+    # operationsSorter: method
+    # tagsSorter: alpha
+    # defaultModelsExpandDepth: -1
+    # defaultModelExpandDepth: 1
+    # defaultModelRendering: example
+    # displayRequestDuration: true
+    # filter: true
+    # showExtensions: true
+    # showCommonExtensions: true
+    # docExpansion: none
+    # deepLinking: true

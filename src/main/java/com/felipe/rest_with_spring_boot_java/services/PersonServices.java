@@ -5,7 +5,10 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
+import com.felipe.rest_with_spring_boot_java.controllers.PersonController;
 import com.felipe.rest_with_spring_boot_java.data.dto.v1.PersonDTO;
 import com.felipe.rest_with_spring_boot_java.exceptions.ResouceNotFoundException;
 import com.felipe.rest_with_spring_boot_java.mapper.ObjectMapper;
@@ -23,7 +26,9 @@ public class PersonServices {
     public List<PersonDTO> findAll() {
         logger.info("Finding all Persons!");
 
-        return ObjectMapper.parseListObjects(repository.findAll(), PersonDTO.class);
+        var persons = ObjectMapper.parseListObjects(repository.findAll(), PersonDTO.class);
+        persons.stream().forEach(p -> addHeteoasLink(p));
+        return persons;
     }
 
     public PersonDTO findByid(Long id) {
@@ -33,14 +38,20 @@ public class PersonServices {
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResouceNotFoundException("No records found for this ID"));
 
-        return ObjectMapper.parseObject(entity, PersonDTO.class);
+        var dto = ObjectMapper.parseObject(entity, PersonDTO.class);
+
+        addHeteoasLink(dto);
+
+        return dto;
     }
 
     public PersonDTO create(PersonDTO person) {
         logger.info("Create one Person!");
         var entity = ObjectMapper.parseObject(person, Person.class);
 
-        return ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
+        var dto = ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
+        addHeteoasLink(dto);
+        return dto;
     }
 
     public PersonDTO update(PersonDTO person) {
@@ -54,7 +65,9 @@ public class PersonServices {
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        return ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
+        var dto = ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
+        addHeteoasLink(dto);
+        return dto;
     }
 
     public void delete(Long id) {
@@ -64,6 +77,14 @@ public class PersonServices {
                 .orElseThrow(() -> new ResouceNotFoundException("No records found for this ID"));
 
         repository.delete(entity);
+    }
+
+    private void addHeteoasLink(PersonDTO dto) {
+        dto.add(linkTo(methodOn(PersonController.class).findByid(dto.getId())).withSelfRel().withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).findAll()).withRel("findAll").withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).create(dto)).withRel("create").withType("POST"));
+        dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("update").withType("PUT"));
+        dto.add(linkTo(methodOn(PersonController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
     }
 
 }
